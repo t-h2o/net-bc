@@ -1,1 +1,75 @@
-= bc a great calculator
+= BC
+:toc: left
+:stem:
+:nofooter:
+
+____
+The goal of this repository is to print a table with the https://www.gnu.org/software/bc/[bc] calculator.
+____
+
+== Print a table
+
+=== The IP table
+
+Print a table like this:
+
+[cols="1,2,3"]
+|===
+| Mask | Binary | Decimal
+
+| /1
+| 1000 0000
+| 128
+
+| /2
+| 1100 0000
+| 192
+
+| /3
+| 1110 0000
+| 224
+
+| /4
+| 1111 0000
+| 240
+
+| /5
+| 1111 1000
+| 248
+
+| /6
+| 1111 1000
+| 252
+
+| /7
+| 1111 1000
+| 254
+|===
+
+=== Mask to decimal
+
+[quoteblock]
+[stem]
+++++
+decimal = 255 - 2 ^ ((8 - mask))
+++++
+
+=== bc function
+
+[source, bc]
+----
+define void all_ranges() {
+  for ( index = 1; index < 8; ++index)
+  {
+    print "/", index, " - ", (256 - 2 ^ (8 - index)), "\n";
+    x = 0;
+    gap = 2 ^ (8 - index);
+    while (x < 256)
+	{
+		print "\t", x, " - ", x + gap - 1, "\n";
+        x = x + gap;
+	}
+  }
+  return ;
+}
+----
