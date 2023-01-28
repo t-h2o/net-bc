@@ -65,10 +65,10 @@ define void all_ranges() {
     x = 0;
     gap = 2 ^ (8 - index);
     while (x < 256)
-	{
-		print "\t", x, " - ", x + gap - 1, "\n";
-        x = x + gap;
-	}
+    {
+      print "\t", x, " - ", x + gap - 1, "\n";
+      x = x + gap;
+    }
   }
   return ;
 }
