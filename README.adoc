@@ -51,7 +51,7 @@ Print a table similar to this:
 [quoteblock]
 [stem]
 ++++
-decimal = 255 - 2 ^ ((8 - mask))
+decimal(mask) = 256 - 2 ^ ((8 - mask))
 ++++
 
 === bc function
