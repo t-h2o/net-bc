@@ -17,6 +17,10 @@ Print a table similar to this:
 |===
 | Mask | Binary | Decimal
 
+| /0
+| 0000 0000
+| 0
+
 | /1
 | 1000 0000
 | 128
@@ -44,6 +48,10 @@ Print a table similar to this:
 | /7
 | 1111 1110
 | 254
+
+| /8
+| 1111 1111
+| 255
 |===
 
 === Mask to decimal
