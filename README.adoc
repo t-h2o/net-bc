@@ -115,3 +115,61 @@ define void all_ranges() {
   return ;
 }
 ----
+
+==== mask and byte
+
+This function takes two arguments, a mask [1-8] and a byte [0-255],
+that print informations.
+
+Example:
+
+----
+mask_byte(4, 42)
+mask : 4
+byte : 42
+mask: /4 -> decimal: 240
+Network  : 32
+host min : 33
+host max : 46
+Broadcast: 47
+----
+
+[source, bc]
+----
+define void mask_byte(mask, byte) {
+  print "mask : ", mask, "\n";
+  print "byte : ", byte, "\n";
+
+  gap = 2 ^ (8 - mask);
+  decimal = 256 - gap
+  print "mask: /", mask, " -> decimal: ", decimal, "\n";
+
+  network = 0;
+  while (network < 256)
+  {
+    broadcast = network + gap - 1;
+    if (byte <= broadcast)
+      break ;
+
+    network = network + gap;
+  }
+
+  if (mask == 8)
+  {
+    host_min = network;
+    host_max = broadcast;
+  }
+  if (mask != 8)
+  {
+    host_min = network + 1;
+    host_max = broadcast - 1;
+  }
+
+  print "Network  : ", network, "\n";
+  print "host min : ", host_min, "\n";
+  print "host max : ", host_max, "\n";
+  print "Broadcast: ", broadcast, "\n\n";
+
+  return ;
+}
+----

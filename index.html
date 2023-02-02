@@ -615,6 +615,68 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 }</code></pre>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_mask_and_byte">mask and byte</h4>
+<div class="paragraph">
+<p>This function takes two arguments, a mask [1-8] and a byte [0-255],
+that print informations.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>mask_byte(4, 42)
+mask : 4
+byte : 42
+mask: /4 -&gt; decimal: 240
+Network  : 32
+host min : 33
+host max : 46
+Broadcast: 47</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bc" data-lang="bc">define void mask_byte(mask, byte) {
+  print "mask : ", mask, "\n";
+  print "byte : ", byte, "\n";
+
+  gap = 2 ^ (8 - mask);
+  decimal = 256 - gap
+  print "mask: /", mask, " -&gt; decimal: ", decimal, "\n";
+
+  network = 0;
+  while (network &lt; 256)
+  {
+    broadcast = network + gap - 1;
+    if (byte &lt;= broadcast)
+      break ;
+
+    network = network + gap;
+  }
+
+  if (mask == 8)
+  {
+    host_min = network;
+    host_max = broadcast;
+  }
+  if (mask != 8)
+  {
+    host_min = network + 1;
+    host_max = broadcast - 1;
+  }
+
+  print "Network  : ", network, "\n";
+  print "host min : ", host_min, "\n";
+  print "host max : ", host_max, "\n";
+  print "Broadcast: ", broadcast, "\n\n";
+
+  return ;
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
